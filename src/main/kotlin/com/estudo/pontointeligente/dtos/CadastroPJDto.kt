@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty
 import org.hibernate.validator.constraints.br.CNPJ
 import org.hibernate.validator.constraints.br.CPF
 
-data class CadastroPjDTO (
+data class CadastroPJDto (
 
         @get:NotEmpty(message = "Nome não pode ser vazio")
         @get:Length(min = 3, max = 200, message = "Nome deve conter entre 3 e 200 caracteres")
