@@ -12,7 +12,8 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class PontointeligenteApplication(val empresaRepository: EmpresaRepository,
+class PontointeligenteApplication()
+/*class PontointeligenteApplication(val empresaRepository: EmpresaRepository,
                                   val funcionarioRepository: FuncionarioRepository,
                                   val lancamentoRepository: LancamentoRepository) : CommandLineRunner {
 
@@ -39,7 +40,7 @@ class PontointeligenteApplication(val empresaRepository: EmpresaRepository,
         println("Funcionario ID: " + funcionario.id)
     }
 
-}
+}*/
 
 
 

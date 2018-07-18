@@ -7,6 +7,7 @@ import com.estudo.pontointeligente.enums.TipoEnum
 import com.estudo.pontointeligente.response.Response
 import com.estudo.pontointeligente.services.FuncionarioService
 import com.estudo.pontointeligente.services.LancamentoService
+import jdk.nashorn.internal.ir.RuntimeNode
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -111,6 +112,39 @@ class LancamentoController(val lancamentoService: LancamentoService,
 
         response.data = lancamentosDto
         return ResponseEntity.ok(response)
+    }
+
+    @PutMapping(value = "/{id}")
+    fun atualizar(@PathVariable("id") id: String, @Valid @RequestBody lancamentoDto: LancamentoDto,
+                  result: BindingResult): ResponseEntity<Response<LancamentoDto>> {
+        val response: Response<LancamentoDto> = Response<LancamentoDto>()
+        validarFuncionario(lancamentoDto, result)
+        lancamentoDto.id = id
+        val lancamento: Lancamento = converterDtoParaLancamento(lancamentoDto, result)
+
+        if(result.hasErrors()) {
+            for (erro in result.allErrors) response.erros.add(erro.defaultMessage)
+            return ResponseEntity.badRequest().body(response)
+        }
+
+        lancamentoService.persistir(lancamento)
+        response.data = converterLancamentoDto(lancamento)
+        return ResponseEntity.ok(response)
+    }
+
+    @DeleteMapping(value = "{id}")
+    fun remover(@PathVariable("id") id: String): ResponseEntity<Response<String>> {
+
+        val response: Response<String> = Response<String>()
+        val lancamento: Lancamento? = lancamentoService.buscarPorId(id)
+
+        if(lancamento == null) {
+            response.erros.add("Erro ao remover lançamento. Registro não encontrado para o id $id")
+            return ResponseEntity.badRequest().body(response)
+        }
+
+        lancamentoService.remover(id)
+        return ResponseEntity.ok(Response<String>())
     }
 
 }

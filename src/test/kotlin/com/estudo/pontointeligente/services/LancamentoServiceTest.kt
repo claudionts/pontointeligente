@@ -1,7 +1,8 @@
+package com.estudo.pontointeligente.services
+
 import com.estudo.pontointeligente.documents.Lancamento
 import com.estudo.pontointeligente.enums.TipoEnum
 import com.estudo.pontointeligente.repositories.LancamentoRepository
-import com.estudo.pontointeligente.services.LancamentoService
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
